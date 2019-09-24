@@ -1,5 +1,6 @@
 require "peng/version"
 
+require "peng/channels"
 require "peng/channels/email"
 require "peng/engine"
 

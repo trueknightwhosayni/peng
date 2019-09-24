@@ -1,9 +1,11 @@
+require 'action_mailer'
+
 class Peng::Channels::Email
-  class Mailer < ApplicationMailer
+  class Mailer < ::ActionMailer::Base
     def send_email
       data = params[:message]
 
-      raise "The email should have :to and :from options" if data[:to].blank? || data[:from].blank? 
+      raise "The email should have :to and :from options" if data[:to].blank? || data[:from].blank?
 
       mail({
         to: data[:to],
@@ -22,8 +24,8 @@ class Peng::Channels::Email
   def self.inline(message)
     Mailer.with(message: message).send_email.deliver_now
   end
-  
+
   def self.async(message)
     Mailer.with(message: message).send_email.deliver_later
-  end  
+  end
 end
